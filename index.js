@@ -6,6 +6,11 @@ import cors from "cors";
 import { Server } from "socket.io";
 
 import authRoute from './routes/auth.js';
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 dotenv.config();
@@ -28,7 +33,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 app.get('/', (req, res) => {
-    res.sendFile('C:/xampp/htdocs/Webka/server/index.html');
+    res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
 io.on('connection', (socket) => {
