@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: backend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      - PORT=8000
+      - DB_USER=root
+      - DB_PASSWORD=12345
+      - DB_NAME=datingapp
+      - JWT_SECRET=dwfjiio2j02ijefi!ijwdsdfi+r1kodk9/kcqo1wd
+
+      
