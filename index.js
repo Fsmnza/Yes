@@ -7,8 +7,14 @@ import { Server } from "socket.io";
 import jwt from "jsonwebtoken"
 
 import authRoute from './routes/auth.js';
+import chatRoute from './routes/chat.js';
 import Message from './models/Message.js';
 import User from './models/User.js';
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 dotenv.config();
@@ -26,6 +32,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoute);
+app.use('/api/chat', chatRoute);
 
 // Create server and io 
 const server = http.createServer(app);
@@ -42,7 +49,7 @@ app.get('/login', (req, res) => {
 app.get('/*', (req, res) => {
   const receiverId = req.params[0];
 
-  res.sendFile('index.html', { receiverId });
+  res.sendFile(path.resolve(__dirname, 'index.html'), { receiverId });
 });
 
 function getUserFromToken(token) {
